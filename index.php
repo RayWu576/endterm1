@@ -50,9 +50,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         </form>
     </div>
 
-<!--    --><?php //print_r($_POST["submit"]) ?>
-<!--    --><?php //print_r($_SERVER["REQUEST_METHOD"]) ?>
-
     <!-- signup-page -->
     <div id="signup-page">
         <form class="form-signup" action="register.php" name="registerForm" method="post" onsubmit="return validateForm()">
