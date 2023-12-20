@@ -30,64 +30,67 @@ body {
   }
 }
 
+.container {
+
+}
+
 #signup-page, #signin-page {
   width: 100%;
-  max-width: 350px;
-  height: 500px;
-  padding: 15px;
-  background-color: white;
-  border-radius: 5px;
-  border-top: 10px solid #3189bc;
-  box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
-
-  position: relative;
+  max-width: 400px;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  border-top: 15px solid #4f95bd88;
+  box-shadow: 0 0px 70px rgba(0, 0, 0, 0.2);
+  /*固定位置在中間*/
+  position: absolute;
   margin: auto;
-  top: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
+  transition: left 0.5s ease-in-out;
 }
 
-.system-name {
-  position: relative;
-  margin: auto;
-  top: 80px;
-  text-align: center;
-}
-
-#floatingID, #floatingPassword, #floatingeEail, #floatingDepartment, #floatingPhoneNumber {
-  width: auto;
-  height: 20px;
-  margin: 10px;
-  color: #000000;
-}
-
-
-.submit, .btn btn-link{
-  color: white;
-  width: 200px;
-  height: 30px;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 0px;
-}
-
-.submit:hover, .btn btn-link{
-  background: #c95828;
-}
-
-#signip-page {
+#signin-page {
   visibility: visible; 
+  height: 400px;
 }
 
 #signup-page {
-  visibility: hidden; 
+  visibility: hidden;
+  height: 650px;
+}
+
+.system-name {
+  position: absolute;
+  margin: auto;
+  text-align: center;
+  left: 50%;
+  top: 10%;  
+  transform: translate(-50%, -50%);
+}
+
+.form-floating { 
+  padding: 10px;
 }
 
 .form-control {
   width: 100%;
-  max-width: 300px;
-  padding: 5px;
+  max-width: 90%;
   border: none;
   border: solid 1px #ccc;
   border-radius: 5px;
 }
+
+#floatingID label, #floatingPassword label, #floatingPasswordCheck label, #floatingName label, 
+#floatingeEail label, #floatingDepartment label, #floatingPhoneNumber label {
+  color: #000000;
+
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
