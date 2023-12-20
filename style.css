@@ -1,0 +1,93 @@
+* {
+  font-family: 微軟正黑體;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  background-color: white;
+
+  background-color: rgb(255, 205, 117);
+    background: linear-gradient(to right, 
+    rgb(255, 170, 170), 
+    rgb(255, 223, 174), 
+    #fdfda8, 
+    #a4ffa4, 
+    #9dceff, 
+    #d2a4ff, 
+    #ffa2e8);
+    background-size: 1000% 1000%;
+    animation: rainbow 15s linear infinite;
+}
+
+@keyframes rainbow {
+  0% {
+      background-position: 0 50%;
+  }
+  100% {
+      background-position: 100% 50%;
+  }
+}
+
+#signup-page, #signin-page {
+  width: 100%;
+  max-width: 350px;
+  height: 500px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+  border-top: 10px solid #3189bc;
+  box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
+
+  position: relative;
+  margin: auto;
+  top: 100px;
+
+}
+
+.system-name {
+  position: relative;
+  margin: auto;
+  top: 80px;
+  text-align: center;
+}
+
+#floatingID, #floatingPassword, #floatingeEail, #floatingDepartment, #floatingPhoneNumber {
+  width: auto;
+  height: 20px;
+  margin: 10px;
+  color: #000000;
+}
+
+
+.submit, .btn btn-link{
+  color: white;
+  width: 200px;
+  height: 30px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0px;
+}
+
+.submit:hover, .btn btn-link{
+  background: #c95828;
+}
+
+#signip-page {
+  visibility: visible; 
+}
+
+#signup-page {
+  visibility: hidden; 
+}
+
+.form-control {
+  width: 100%;
+  max-width: 300px;
+  padding: 5px;
+  border: none;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+}
