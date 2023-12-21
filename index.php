@@ -26,9 +26,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-<!-- <h1>Log In</h1>
-<h2>你可以選擇登入或是註冊帳號~</h2> -->
-
 <!-- container -->
 <div class="container">
 
