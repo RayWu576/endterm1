@@ -4,7 +4,7 @@ $conn = require_once "config.php";
 session_start();  //很重要，可以用的變數存在session裡
 $username = $_SESSION["name"];
 
-$sql = "SELECT * FROM activity";
+$sql = "SELECT * FROM activity WHERE category = 0";
 $result = $conn->query($sql);
 
 // 關閉資料庫連線
@@ -127,7 +127,7 @@ echo "<a class='btn btn-danger position-absolute bottom-0 start-50 translate-mid
     </div> <!-- 橫排列印所有活動卡片 結束 -->
 
 
-    
+
 <!--
          <div class="card" style="width: 20rem; height:auto;">
             <div class="card-body">

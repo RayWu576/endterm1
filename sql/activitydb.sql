@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023 年 12 月 20 日 22:24
+-- 產生時間： 2023 年 12 月 21 日 17:29
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `activity` (
-  `activity_id` varchar(30) NOT NULL,
+  `activity_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `start_date_time` datetime NOT NULL,
   `end_date_time` datetime NOT NULL,
@@ -38,8 +38,26 @@ CREATE TABLE `activity` (
   `capacity` int(10) UNSIGNED DEFAULT NULL,
   `register_deadline` datetime NOT NULL,
   `cost` varchar(100) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL
+  `status` varchar(20) DEFAULT NULL,
+  `category` tinyint(1) NOT NULL,
+  `participants` int(11) DEFAULT NULL,
+  `year` varchar(3) DEFAULT NULL,
+  `semester` int(11) DEFAULT NULL,
+  `additional_info` varchar(300) DEFAULT NULL,
+  `hours` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- 傾印資料表的資料 `activity`
+--
+
+INSERT INTO `activity` (`activity_id`, `name`, `start_date_time`, `end_date_time`, `location`, `description`, `organizer`, `capacity`, `register_deadline`, `cost`, `status`, `category`, `participants`, `year`, `semester`, `additional_info`, `hours`) VALUES
+(1, '測試活動1', '2023-12-21 10:02:10', '2023-12-22 17:02:11', '嘉義大學蘭潭校區理工大樓403教室', '這是一個測試用的活動。\r\n第二行\r\n第三行\r\n...\r\n...', '我、111、222、333\r\n主辦人員11、主辦人員22', 100, '2023-12-22 17:02:11', '第i人繳交i*100元', NULL, 0, 0, NULL, NULL, NULL, NULL),
+(2, '測試活動2', '2023-12-21 10:04:58', '2023-12-23 17:05:00', '測試地點2', '測試描述111', '測試人員111', 100, '2023-12-21 10:04:58', '0', NULL, 0, 0, NULL, NULL, NULL, NULL),
+(3, '測試活動3', '2023-12-21 14:26:21', '2023-12-26 21:26:23', '123132131\r\n132132123165465', '848461313134\r\n152416546103210\r\n165132\r\n1534651\r\n32103241', '1000000211685646', 2, '2023-12-21 14:26:21', '41565613212315\r\n32103241', NULL, 0, 0, NULL, NULL, NULL, NULL),
+(4, '微學程測試111', '2023-12-21 00:12:30', '2023-12-27 00:12:30', '嘉義大學123', '1111111111111\r\n22222222222\r\n33333333333333\r\n444444444444444\r\n5555555555555', '88887878\r\n8787787778\r\n878', 2, '2023-12-23 00:12:30', '1000000000000000000000000000$', NULL, 1, 0, '000', 1, '87', 9),
+(5, '微學程測試111', '2023-12-22 00:16:20', '2023-12-27 00:16:20', '嘉義大學123\r\n45677777777777\r\n789777777777777\r\n4567777777777777777777777777777777777777\r\n1237777777777777', '8888888888888888877777777777777777777777777777\r\n888888888888888888888888877777777777777777777\r\n8787\r\n123', '888999', 2, '2023-12-23 00:16:20', '100000000000000000000000$', NULL, 1, 0, '112', 1, '0.0', 9),
+(6, '微學程測試111', '2023-12-22 00:18:17', '2023-12-27 00:18:17', '111111111111111\r\n2\r\n23\r\n23\r\n23\r\n2\r\n2\r\n', '4649856546\r\n4545646456432\r\n1212313\r\n', '111111111\r\n222222222222222\r\n33333333333333', 2, '2023-12-24 00:18:17', '4684646464646846464$', NULL, 1, NULL, '112', 1, '88', 9);
 
 -- --------------------------------------------------------
 
@@ -60,11 +78,21 @@ CREATE TABLE `blacklist` (
 --
 
 CREATE TABLE `notification` (
-  `notification_id` varchar(30) NOT NULL,
-  `activity_id` varchar(30) NOT NULL,
-  `student_id` varchar(30) DEFAULT NULL,
+  `activity_id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(50) NOT NULL,
   `datetime` datetime NOT NULL,
   `message` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `registration`
+--
+
+CREATE TABLE `registration` (
+  `activity_id` int(10) UNSIGNED NOT NULL,
+  `student_id` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -74,8 +102,7 @@ CREATE TABLE `notification` (
 --
 
 CREATE TABLE `sign_in` (
-  `sign_id` varchar(30) NOT NULL,
-  `activity_id` varchar(30) NOT NULL,
+  `activity_id` int(10) UNSIGNED NOT NULL,
   `student_id` varchar(30) NOT NULL,
   `sign_in_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -88,12 +115,12 @@ CREATE TABLE `sign_in` (
 
 CREATE TABLE `user` (
   `student_id` varchar(30) NOT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `department` varchar(30) DEFAULT NULL,
-  `phone_number` varchar(30) DEFAULT NULL,
+  `email` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `department` varchar(30) NOT NULL,
+  `phone_number` varchar(30) NOT NULL,
   `user_type` tinyint(1) DEFAULT NULL,
-  `password` varchar(30) DEFAULT NULL
+  `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -123,15 +150,19 @@ ALTER TABLE `blacklist`
 -- 資料表索引 `notification`
 --
 ALTER TABLE `notification`
-  ADD PRIMARY KEY (`notification_id`),
-  ADD KEY `activity_id` (`activity_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `activity_id` (`activity_id`);
+
+--
+-- 資料表索引 `registration`
+--
+ALTER TABLE `registration`
+  ADD KEY `activity_id` (`activity_id`);
 
 --
 -- 資料表索引 `sign_in`
 --
 ALTER TABLE `sign_in`
-  ADD PRIMARY KEY (`sign_id`);
+  ADD KEY `activity_id` (`activity_id`);
 
 --
 -- 資料表索引 `user`
@@ -140,15 +171,30 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`student_id`);
 
 --
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+--
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `activity_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- 已傾印資料表的限制式
 --
 
 --
--- 資料表的限制式 `notification`
+-- 資料表的限制式 `registration`
 --
-ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`activity_id`),
-  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `user` (`student_id`);
+ALTER TABLE `registration`
+  ADD CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`activity_id`) ON UPDATE NO ACTION;
+
+--
+-- 資料表的限制式 `sign_in`
+--
+ALTER TABLE `sign_in`
+  ADD CONSTRAINT `sign_in_ibfk_1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`activity_id`) ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

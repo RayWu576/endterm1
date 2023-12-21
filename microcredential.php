@@ -1,6 +1,15 @@
 <?php
+$conn = require_once "config.php";
+
 session_start();  //很重要，可以用的變數存在session裡
 $username = $_SESSION["name"];
+
+$sql = "SELECT * FROM activity WHERE category = 1";
+$result = $conn->query($sql);
+
+// 關閉資料庫連線
+$conn->close();
+
 //echo "<h1 class='position-absolute top-0 start-50 translate-middle m-4'>你好 ".$username."</h1>";
 echo "<a class='btn btn-danger position-absolute bottom-0 start-50 translate-middle ' href='logout.php'>登出</a>";
 
@@ -53,26 +62,99 @@ echo "<a class='btn btn-danger position-absolute bottom-0 start-50 translate-mid
     </div>
     </nav>
 
-    <div class="card" style="width: 20rem; height:auto;">
-        <div class="card-body">
-            <h5 class="card-title">微學程名稱</h5>
-            <p class="card-text">課程描述..................</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">時間</li>
-            <li class="list-group-item">地點</li>
-            <li class="list-group-item">花費</li>
-            <li class="list-group-item">等等...</li>
-            <li class="list-group-item">等等...</li>
-            <li class="list-group-item">等等...</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">前往報名</a>
-            <a href="#" class="card-link">其他...</a>
-        </div>
-    </div>
-        </div>
-    </div>
+    <div class="row row-cols-md-2 g-6" style="margin-top:20%; width:150%; max-height:2000px"> <!-- 橫排列印所有活動卡片 -->
+    <?php 
+        if (mysqli_num_rows($result) > 0 )
+        {
+            foreach ($result as $row) //開始列印
+            {
+                $current_id = $row['activity_id'];
+    ?>
+                <div clss="col">
+                <div class="card" style="width: 30rem;">
+
+                    <div class="card-header">
+                        <!-- 活動名稱 -->
+
+                        <!-- 活動詳細描述展開 -->
+                        <div class="accordion accordion-flush" id=<?php echo "accordionFlush".$current_id; ?> >
+                            <div class="accordion-item">
+
+                            <h2 class="accordion-header" id=<?php echo "heading".$current_id; ?>>
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target=<?php echo "#collapse".$current_id; ?> aria-expanded="false" aria-controls=<?php echo "collapse".$current_id; ?>>
+                                        <h5 class="card-title"><?php echo $row['name']; ?></h5>
+                                </button>
+                            </h2> <!-- 欲展開的標題 -->
+
+                            <div id=<?php echo "collapse".$current_id; ?> class="accordion-collapse collapse" 
+                                    aria-labelledby=<?php echo "heading".$current_id; ?>>
+                                <div class="accordion-body">
+                                    <p class="card-text">
+                                        <?php echo nl2br($row['description']); ?>
+                                    </p>
+                                </div>
+                            </div> <!-- 描述 -->
+
+                            </div> <!-- accordion-item -->
+                        </div> <!-- accordion -->
+
+                    </div> <!-- card-header -->
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">學年學期 <?php echo $row['year']." ".$row['semester']; ?></li>  
+                        <li class="list-group-item">授課教師: <?php echo $row['organizer']; ?></li>
+                        <li class="list-group-item">上課開始時間: <?php echo $row['start_date_time']; ?></li>
+                        <li class="list-group-item">上課結束時間: <?php echo $row['end_date_time']; ?></li>
+                        <li class="list-group-item">地點: <?php echo $row['location']; ?></li>
+                        <li class="list-group-item">最大人數上限: <?php echo $row['capacity']; ?></li>
+                        <li class="list-group-item">報名截止日: <?php echo $row['register_deadline']; ?></li>
+                        <li class="list-group-item">繳交金額: <?php echo $row['cost']; ?></li>
+                        <li class="list-group-item">狀態: <?php echo $row['status']; ?></li>
+                        <li class="list-group-item">額外說明: <?php echo $row['additional_info']; ?></li>
+                        <li class="list-group-item">時數: <?php echo $row['hours']; ?></li>
+                    </ul> <!-- list-group -->
+
+                    <div class="card-footer">
+                        <a href="#" class="card-link">前往報名</a>
+                        <a href="#" class="card-link">其他...</a>
+                    </div> <!-- card-body -->
+
+                </div> <!-- card整體 -->
+                </div>
+    <?php            
+            }
+        } // 列印活動cards 結束
+    ?>
+    </div> <!-- 橫排列印所有活動卡片 結束 -->
+
+
+    
+<!--
+         <div class="card" style="width: 20rem; height:auto;">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['name']; ?></h5>
+                <p class="card-text">
+                    <?php echo nl2br($row['description']); ?>
+                </p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">活動主辦人: <?php echo $row['organizer']; ?></li>
+                <li class="list-group-item">活動開始時間: <?php echo $row['start_date_time']; ?></li>
+                <li class="list-group-item">活動結束時間: <?php echo $row['end_date_time']; ?></li>
+                <li class="list-group-item">地點: <?php echo $row['location']; ?></li>
+                <li class="list-group-item">最大人數上限: <?php echo $row['capacity']; ?></li>
+                <li class="list-group-item">報名截止日: <?php echo $row['register_deadline']; ?></li>
+                <li class="list-group-item">繳交金額: <?php echo $row['cost']; ?></li>
+                <li class="list-group-item">狀態: <?php echo $row['status']; ?></li>
+            </ul>
+
+            <div class="card-body">
+                <a href="#" class="card-link">前往報名</a>
+                <a href="#" class="card-link">其他...</a>
+            </div> 
+        </div> -->
 
 </div> <!-- container -->
 
