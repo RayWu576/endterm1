@@ -3,7 +3,7 @@
 // 設定server、username、password、table name
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', '123456789');
 define('DB_NAME', 'activitydb');
 
 /* 連接 MySQL database */

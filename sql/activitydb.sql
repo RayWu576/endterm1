@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023 年 12 月 21 日 17:29
+-- 產生時間： 2023-12-22 17:31:02
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -66,7 +66,7 @@ INSERT INTO `activity` (`activity_id`, `name`, `start_date_time`, `end_date_time
 --
 
 CREATE TABLE `blacklist` (
-  `student_id` varchar(20) NOT NULL,
+  `id` varchar(30) NOT NULL,
   `reason` varchar(100) NOT NULL,
   `datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -114,7 +114,7 @@ CREATE TABLE `sign_in` (
 --
 
 CREATE TABLE `user` (
-  `student_id` varchar(30) NOT NULL,
+  `user_id` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `name` varchar(30) NOT NULL,
   `department` varchar(30) NOT NULL,
@@ -127,8 +127,9 @@ CREATE TABLE `user` (
 -- 傾印資料表的資料 `user`
 --
 
-INSERT INTO `user` (`student_id`, `email`, `name`, `department`, `phone_number`, `user_type`, `password`) VALUES
-('1102963', '2963@mail.com', '2963', 'cs', '0909', 0, '123456');
+INSERT INTO `user` (`user_id`, `email`, `name`, `department`, `phone_number`, `user_type`, `password`) VALUES
+('1102963', '2963@mail.com', '2963', 'cs', '0909', 0, '123456'),
+('admin', 'admin@g.ncyu.edu.tw', 'admin_01', 'csie', '09xxxxxxxx', 1, '123456');
 
 --
 -- 已傾印資料表的索引
@@ -144,7 +145,7 @@ ALTER TABLE `activity`
 -- 資料表索引 `blacklist`
 --
 ALTER TABLE `blacklist`
-  ADD PRIMARY KEY (`student_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `notification`
@@ -168,7 +169,7 @@ ALTER TABLE `sign_in`
 -- 資料表索引 `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`student_id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
