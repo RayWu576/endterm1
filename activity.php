@@ -2,7 +2,11 @@
 $conn = require_once "config.php";
 
 session_start();  //很重要，可以用的變數存在session裡
-$username = $_SESSION["name"];
+$userName = $_SESSION["name"];
+$userID = $_SESSION["id"];
+$userEmail = $_SESSION["email"];
+$userPhone = $_SESSION["phoneNumber"];
+$userType = $_SESSION["userType"];
 
 $sql = "SELECT * FROM activity WHERE category = 0";
 $result = $conn->query($sql);
@@ -33,7 +37,7 @@ echo "<a class='btn btn-danger position-absolute bottom-0 start-50 translate-mid
 
 <div class="container">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
     <div class="container-fluid">   
     
         <a class="navbar-brand" href="#">
@@ -55,9 +59,21 @@ echo "<a class='btn btn-danger position-absolute bottom-0 start-50 translate-mid
                 <li class="nav-item">
                     <a class="nav-link" href="microcredential.php">微學程</a>
                 </li>
+
+                <?php
+                    if ($userType == 1){
+                ?>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="create.php">添加活動/微學程</a>
+                        </li>
+                <?php
+                    }
+                ?>
             </ul>
 
-            <span class="navbar-text">您好， <?php echo $username?> </span>
+            <span class="navbar-text">您好， <?php echo $userName?></span>
+
+            <a class="btn btn-danger" href="logout.php">登出</a>
         </div>
     </div>
     </nav>

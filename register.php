@@ -2,18 +2,17 @@
 $conn = require_once("config.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $username=$_POST["username"];
-
+    $userID = $_POST["userID"];
     $name = $_POST["name"];
     $department = $_POST["department"];
     $phone_number = $_POST["phone-number"];
     $password = $_POST["password"];
     $email = $_POST["mail"];
     //檢查帳號是否重複
-    $check = "SELECT * FROM user WHERE name='".$username."'";
+    $check = "SELECT * FROM user WHERE name='".$userID."'";
     if(mysqli_num_rows(mysqli_query($conn, $check)) == 0){
-        $sql = "INSERT INTO user (student_id , email, name, department, phone_number, user_type, password)
-            VALUES('".$username."', 
+        $sql = "INSERT INTO user (user_id , email, name, department, phone_number, user_type, password)
+            VALUES('".$userID."', 
             '".$email."',
             '".$name."',
             '".$department."',

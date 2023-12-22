@@ -39,7 +39,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <form class="form-signin" action="login.php" method="post">
             
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingID" name="username" placeholder="">
+                <input type="text" class="form-control" id="floatingID" name="userID" placeholder="">
                 <label for="floatingID">學號(studentID)</label>
             </div>
 
@@ -58,7 +58,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <form class="form-signup" action="register.php" name="registerForm" method="post" onsubmit="return validateForm()">
             
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingID" name="username" placeholder="">
+                <input type="text" class="form-control" id="floatingID" name="userID" placeholder="">
                 <label for="floatingID">學號(studentID)</label>
             </div>
 

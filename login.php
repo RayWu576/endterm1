@@ -3,13 +3,13 @@
 $conn = require_once "config.php";
 
 // Define variables and initialize with empty values
-$username = $_POST["username"];
+$userID = $_POST["userID"];
 $password = $_POST["password"];
 //增加hash可以提高安全性
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $sql = "SELECT * FROM user WHERE student_id ='".$username."'";
+    $sql = "SELECT * FROM user WHERE user_id ='".$userID."'";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) == 1) {
@@ -21,8 +21,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // 將數據存儲在會話變數中
             $_SESSION["loggedin"] = true;
             //這些是之後可以用到的變數
-            $_SESSION["id"] = $user_data["student_id"];
+            $_SESSION["id"] = $user_data["user_id"];
             $_SESSION["name"] = $user_data["name"];
+            $_SESSION["email"] = $user_data["email"];
+            $_SESSION["phoneNumber"] = $user_data["phone_number"];
+            $_SESSION["userType"] = $user_data["user_type"];
             // 跳轉到主畫面
             header("location: welcome.php");
             exit(); // 確保在重定向之後不再執行其他代碼
