@@ -3,6 +3,7 @@ $conn = require_once "config.php";
 
 session_start();  //很重要，可以用的變數存在session裡
 $userName = $_SESSION["name"];
+
 $userID = $_SESSION["id"];
 $userEmail = $_SESSION["email"];
 $userPhone = $_SESSION["phoneNumber"];
